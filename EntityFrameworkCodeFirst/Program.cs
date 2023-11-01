@@ -15,6 +15,21 @@ namespace EntityFrameworkCodeFirst
                 //AddCustomer();
             }
         }
+
+        private static void OrderBy()
+        {
+            using (var context = new NorthwindContext())
+            {
+                var result = from c in context.Customers
+                             orderby c.Country, c.City
+                             select c;
+                foreach (var customer in result)
+                {
+                    Console.WriteLine($"{customer.Country} {customer.City}");
+                }
+            }
+        }
+
         private static void GroupMoreColumn()
         {
             using (var context = new NorthwindContext())
@@ -37,6 +52,7 @@ namespace EntityFrameworkCodeFirst
                 }
             }
         }
+
         private static void Group()
         {
             using (var context = new NorthwindContext())
