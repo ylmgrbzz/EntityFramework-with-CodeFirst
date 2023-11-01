@@ -33,6 +33,11 @@ namespace EntityFrameworkCodeFirst
                                  OrderId = co.OrderId,
                                  OrderDate = co.OrderDate
                              };
+
+                foreach (var item in result)
+                {
+                    Console.WriteLine($"{item.CustomerId} {item.ContactName} {item.OrderId} {item.OrderDate}");
+                }
             }
         }
 
