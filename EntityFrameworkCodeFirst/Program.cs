@@ -9,9 +9,32 @@ namespace EntityFrameworkCodeFirst
         {
             using (var context = new NorthwindContext())
             {
+                Order order = context.Orders.Find(1);
+                Console.WriteLine($"{order.OrderId} {order.CustomerId} {order.Customer.ContactName}");
+                context.Orders.Remove(order);
+                context.SaveChanges();
+            }
+        }
+
+        private static void RemoveOrder()
+        {
+            using (var context = new NorthwindContext())
+            {
+                Customer customer = context.Customers.Find("ALFKI");
+                customer.ContactName
+                    = "Maria Anders";
+                context.SaveChanges();
+            }
+        }
+
+        private static void FindCustomer()
+        {
+            using (var context = new NorthwindContext())
+            {
                 Customer customer = context.Customers.Find("ALFKI");
                 customer.Orders.Add(new Order
                 {
+                    OrderId = 1,
                     OrderDate = DateTime.Now,
                     RequiredDate = DateTime.Now.AddDays(7),
                     ShipCity = "Berlin",
