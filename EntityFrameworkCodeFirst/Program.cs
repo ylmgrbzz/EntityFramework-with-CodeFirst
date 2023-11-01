@@ -21,7 +21,7 @@ namespace EntityFrameworkCodeFirst
         {
             using (var context = new NorthwindContext())
             {
-                var result = context.Customers.Include("Orders");
+                var result = context.Customers.Include("Orders").Where(c => c.Country == "Germany" )
                 foreach (var customer in result)
                 {
                     Console.WriteLine($"{customer.CustomerId} {customer.ContactName}");
