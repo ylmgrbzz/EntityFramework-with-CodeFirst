@@ -16,6 +16,21 @@ namespace EntityFrameworkCodeFirst
             }
         }
 
+        private static void Linq()
+        {
+            using (var context = new NorthwindContext())
+            {
+                var result = context.Customers.Where(c => c.Country == "Germany" &&
+                c.City == "Berlin").OrderBy(c => c.ContactName).Select(
+                    c => new { c.CustomerId, c.ContactName }).ToList();
+
+                foreach (var customer in result)
+                {
+                    Console.WriteLine($"{customer.CustomerId} {customer.ContactName}");
+                }
+            }
+        }
+
         private static void leftJoin()
         {
             using (var context = new NorthwindContext())
