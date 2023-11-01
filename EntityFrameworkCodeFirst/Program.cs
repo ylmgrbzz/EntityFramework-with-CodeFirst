@@ -16,6 +16,48 @@ namespace EntityFrameworkCodeFirst
             }
         }
 
+        private static void leftJoin()
+        {
+            using (var context = new NorthwindContext())
+            {
+                var result = from c in context.Customers
+                             join o in context.Orders
+                             on c.CustomerId equals o.CustomerId into g
+                             from co in g.DefaultIfEmpty()
+                             where g.Count() == 0
+                             orderby c.CustomerId
+                             select new
+                             {
+                                 CustomerId = c.CustomerId,
+                                 ContactName = c.ContactName,
+                                 OrderId = co.OrderId,
+                                 OrderDate = co.OrderDate
+                             };
+            }
+        }
+
+        private static void Join()
+        {
+            using (var context = new NorthwindContext())
+            {
+                var result = from c in context.Customers
+                             join o in context.Orders
+                             on c.CustomerId equals o.CustomerId
+                             orderby c.CustomerId
+                             select new
+                             {
+                                 CustomerId = c.CustomerId,
+                                 ContactName = c.ContactName,
+                                 OrderId = o.OrderId,
+                                 OrderDate = o.OrderDate
+                             };
+                foreach (var item in result)
+                {
+                    Console.WriteLine($"{item.CustomerId} {item.ContactName} {item.OrderId} {item.OrderDate}");
+                }
+            }
+        }
+
         private static void OrderBy()
         {
             using (var context = new NorthwindContext())
