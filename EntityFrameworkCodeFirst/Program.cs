@@ -1,5 +1,6 @@
 ﻿using EntityFrameworkCodeFirst.Contexts;
 using EntityFrameworkCodeFirst.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace EntityFrameworkCodeFirst
 {
@@ -13,6 +14,22 @@ namespace EntityFrameworkCodeFirst
                 //UpdateOrder();
                 //FindCustomer();
                 //AddCustomer();
+            }
+        }
+
+        private static void LinqCustomer()
+        {
+            using (var context = new NorthwindContext())
+            {
+                var result = context.Customers.Include("Orders");
+                foreach (var customer in result)
+                {
+                    Console.WriteLine($"{customer.CustomerId} {customer.ContactName}");
+                    foreach (var order in customer.Orders)
+                    {
+                        Console.WriteLine($"  {order.OrderId} {order.OrderDate}");
+                    }
+                }
             }
         }
 
