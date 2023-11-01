@@ -21,7 +21,7 @@ namespace EntityFrameworkCodeFirst
             using (var context = new NorthwindContext())
             {
                 var result = from c in context.Customers
-                             orderby c.Country, c.City
+                             orderby c.Country.Length descending, c.City
                              select c;
                 foreach (var customer in result)
                 {
