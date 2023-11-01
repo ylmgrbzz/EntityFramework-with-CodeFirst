@@ -15,7 +15,28 @@ namespace EntityFrameworkCodeFirst
                 //AddCustomer();
             }
         }
+        private static void GroupMoreColumn()
+        {
+            using (var context = new NorthwindContext())
+            {
+                var result = from c in context.Customers
+                             group c by new { c.Country, c.City } into g
+                             select new
+                             {
+                                 Country = g.Key.Country,
+                                 City = g.Key.City,
+                                 Count = g.Count()
+                             };
 
+                foreach (var group in result)
+                {
+                    foreach (var customer in result)
+                    {
+                        Console.WriteLine($"{group.Country} {group.City} {group.Count}");
+                    }
+                }
+            }
+        }
         private static void Group()
         {
             using (var context = new NorthwindContext())
